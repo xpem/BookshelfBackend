@@ -1,0 +1,33 @@
+CREATE TABLE
+  `books` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `uid` varchar(250) NOT NULL,
+    `title` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+    `substitle` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `authors` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+    `volume` int(11) DEFAULT NULL,
+    `pages` int(11) DEFAULT NULL,
+    `year` int(11) DEFAULT NULL,
+    `status` int(11) NOT NULL,
+    `genre` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `isbn` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `cover` varchar(2000) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `google_id` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `score` int(11) DEFAULT NULL,
+    `comment` varchar(350) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `created_at` datetime(3) NOT NULL DEFAULT current_timestamp(3),
+    `updated_at` datetime(3) NOT NULL,
+    `inactive` tinyint(1) NOT NULL DEFAULT 0,
+    PRIMARY KEY (`id`)
+  ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci
+
+create table users(
+    id int primary key AUTO_INCREMENT,
+    name varchar(250) not null,
+    email varchar(250) not null,
+    password varchar(250) not null,
+    created_at datetime NOT NULL DEFAULT NOW(),
+    updated_at datetime NOT NULL
+)
+
+
