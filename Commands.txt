@@ -1,0 +1,43 @@
+npm init -y
+npm i typescript -D
+npm i express
+npm i @types/express -D
+npx tsc --init
+npm i ts-node-dev -D
+npm i ts-node -D
+npm i express-async-errors
+npm i cors
+npm i @types/cors -D
+npm i dotenv
+
+npm i mysql2
+
+for password encrypt
+
+npm i bcryptjs
+npm i @types/bcryptjs -D
+
+for jwt 
+
+npm i jsonwebtoken
+npm i @types/jsonwebtoken -D
+
+
+para publicar:
+
+run build
+
+Copiar conteudo da pasta build + os package.json e package-lock.json
+
+publicar pelo ftp,
+
+em caso de novo npm i, rodar o npm install no putty
+
+
+Commandos putty
+
+npm install
+
+pm2 <local do arquivo>
+pm2 start server.js
+
