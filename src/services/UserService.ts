@@ -1,5 +1,5 @@
 import { RowDataPacket, OkPacket } from "mysql2";
-import { conn } from "../DatabaseConn";
+import { Conn } from "../Keys";
 import { IUser } from "../models/User";
 
 // export const conn = mysql.createConnection({
@@ -12,7 +12,7 @@ import { IUser } from "../models/User";
 export class UserService {
   create(name: string, email: string, passwordHash: string): Promise<IUser> {
     return new Promise((resolve, reject) => {
-      conn.query<OkPacket>(
+      Conn.query<OkPacket>(
         "INSERT INTO users(name,email,password,updated_at) VALUES(?,?,?, NOW())",
         [name, email, passwordHash],
         (err, res) => {
@@ -27,7 +27,7 @@ export class UserService {
   }
   getById(uid: number): Promise<IUser | undefined> {
     return new Promise((resolve, reject) => {
-      conn.query("SELECT * FROM users WHERE id = ?", [uid], (err, res) => {
+      Conn.query("SELECT * FROM users WHERE id = ?", [uid], (err, res) => {
         if (err) reject(err);
         else {
           const row = (<RowDataPacket>res)[0];
@@ -47,7 +47,7 @@ export class UserService {
   }
   getByEmail(email: string): Promise<IUser | undefined> {
     return new Promise((resolve, reject) => {
-      conn.query("SELECT * FROM users WHERE email = ?", [email], (err, res) => {
+      Conn.query("SELECT * FROM users WHERE email = ?", [email], (err, res) => {
         if (err) reject(err);
         else {
           const row = (<RowDataPacket>res)[0];
@@ -56,6 +56,7 @@ export class UserService {
               id: row.id,
               email: row.email,
               name: row.name,
+              password: row.password,
             };
             resolve(user);
           } else {

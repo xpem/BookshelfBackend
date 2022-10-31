@@ -1,13 +1,13 @@
-import mysql, { OkPacket } from "mysql2";
+import { OkPacket } from "mysql2";
 import { ITeste } from "../models/Teste";
 import { RowDataPacket } from "mysql2";
-import { conn } from "../DatabaseConn";
+import { Conn } from "../Keys";
 
 
 export class TesteRepository {
   readAll(): Promise<ITeste[]> {
     return new Promise((resolve, reject) => {
-      conn.query("SELECT * FROM teste", (err: any, res: any) => {
+      Conn.query("SELECT * FROM teste", (err: any, res: any) => {
         if (err) reject(err);
         else {
           const rows = <RowDataPacket[]>res;
@@ -27,7 +27,7 @@ export class TesteRepository {
   }
   readById(teste_id: number): Promise<ITeste | undefined> {
     return new Promise((resolve, reject) => {
-      conn.query(
+      Conn.query(
         "SELECT * FROM teste WHERE id = ?",
         [teste_id],
         (err, res) => {
@@ -47,7 +47,7 @@ export class TesteRepository {
   }
   create(teste: ITeste): Promise<ITeste> {
     return new Promise((resolve, reject) => {
-      conn.query<OkPacket>(
+      Conn.query<OkPacket>(
         "INSERT INTO teste (texto) VALUES(?)",
         [teste.texto],
         (err, res) => {

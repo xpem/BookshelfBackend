@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import { UserService } from "../services/UserService";
 import { hash, compare } from "bcryptjs";
+import { sign } from "jsonwebtoken";
+import { JwtSecret } from "../Keys";
 
 const validateEmail = (email: string) => {
   return String(email)
@@ -31,7 +33,8 @@ export class UserController {
 
     return res.json(user);
   }
-  async getById(req: Request, res: Response) {
+
+  async getAuthenticatedUser(req: Request, res: Response) {
     const uid = req.uid;
 
     const userService = new UserService();
@@ -39,21 +42,35 @@ export class UserController {
 
     return res.json(user);
   }
-  async AuthenticateUser(req: Request, res: Response) {
+
+  async GenerateToken(req: Request, res: Response) {
     const { email, password } = req.body;
 
     const userService = new UserService();
     const userResponse = await userService.getByEmail(email);
-
+    
+    console.log(userResponse);
+    
     if (!userResponse) {
       throw new Error("User/Password incorrect");
     }
 
-    const passwordMatch = await compare(password, userResponse.password as string);
-    
+    const passwordMatch = await compare(
+      password,
+      String(userResponse.password)
+    );
+
+
     if (!passwordMatch) {
       throw new Error("User/Password incorrect");
     }
 
+    const token = sign(
+      { name: userResponse.name, email: userResponse.email },
+      JwtSecret,
+      { subject: String(userResponse.id), expiresIn: "1d" }
+    );
+
+    return res.json(token);
   }
 }

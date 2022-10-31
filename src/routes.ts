@@ -1,11 +1,11 @@
 import { Router } from "express";
+import { BookController } from "./controllers/BookController";
 import { UserController } from "./controllers/UserController";
+import { Authenticate } from "./middleware/Authenticate";
 import { ITeste } from "./models/Teste";
 import { TesteRepository } from "./services/TesteService";
 
 const router = Router();
-
-
 
 //testes
 router.get("/", async (req, res) => {
@@ -34,7 +34,9 @@ router.post("/teste", async (req, res) => {
 //
 
 router.post("/user", new UserController().create);
+router.post("/user/session", new UserController().GenerateToken);
+router.get("/user", Authenticate, new UserController().getAuthenticatedUser);
 
-
+router.post("/book", Authenticate, new BookController().create);
 
 export { router };

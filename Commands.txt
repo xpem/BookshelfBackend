@@ -36,8 +36,13 @@ em caso de novo npm i, rodar o npm install no putty
 
 Commandos putty
 
+cd ~/apps_nodejs/BookshelfServer
+
 npm install
 
 pm2 <local do arquivo>
 pm2 start server.js
+
+
+
 
