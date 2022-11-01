@@ -115,11 +115,11 @@ export class BookController {
 
       const bookResponse = await bookService.readByTitle(Title as string);
 
-      if (!bookResponse) {
+      if (bookResponse && bookResponse.Id != book.Id) {
+        return res.status(409).json("Livro com este título já cadastrado.");
+      } else {
         const bookResponse = await bookService.update(book);
         return res.json(bookResponse);
-      } else {
-        return res.status(409).json("Livro com este título já cadastrado.");
       }
     } else {
       return res
