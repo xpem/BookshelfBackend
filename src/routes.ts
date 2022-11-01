@@ -2,41 +2,15 @@ import { Router } from "express";
 import { BookController } from "./controllers/BookController";
 import { UserController } from "./controllers/UserController";
 import { Authenticate } from "./middleware/Authenticate";
-import { ITeste } from "./models/Teste";
-import { TesteRepository } from "./services/TesteService";
 
 const router = Router();
-
-//testes
-router.get("/", async (req, res) => {
-  return res.status(200).json({
-    message: "I'm awake 2!",
-  });
-});
-
-router.get("/teste", async (req, res) => {
-  const testerepo = new TesteRepository();
-
-  const resp = await testerepo.readAll();
-  console.log(resp);
-  return res.status(200).json(resp);
-});
-
-router.post("/teste", async (req, res) => {
-  const text = req.body.text as string;
-
-  const testerepo = new TesteRepository();
-
-  const resp = await testerepo.create({ texto: text });
-  console.log(resp);
-  return res.status(200).json(resp);
-});
-//
 
 router.post("/user", new UserController().create);
 router.post("/user/session", new UserController().GenerateToken);
 router.get("/user", Authenticate, new UserController().getAuthenticatedUser);
 
 router.post("/book", Authenticate, new BookController().create);
+router.put("/book/:id", Authenticate, new BookController().update);
+router.get("/book/updatedAt", Authenticate, new BookController().readByUpdatedAt);
 
 export { router };

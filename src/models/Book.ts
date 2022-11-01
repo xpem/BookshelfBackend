@@ -1,6 +1,6 @@
 export interface IBook {
-    Id: number;
-    Uid: string,
+    Id?: number | null;
+    Uid?: string | null,
     Title: string,
     SubTitle: string,
     Authors: string,
@@ -14,7 +14,7 @@ export interface IBook {
     GoogleId: string,
     Score:number,
     Comment: string,
-    CreatedAt:Date,
+    CreatedAt?:Date,
     UpdatedAt:Date,
     Inactive:number
   }
