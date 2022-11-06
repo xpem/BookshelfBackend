@@ -11,6 +11,6 @@ router.get("/user", Authenticate, new UserController().getAuthenticatedUser);
 
 router.post("/book", Authenticate, new BookController().create);
 router.put("/book/:id", Authenticate, new BookController().update);
-router.get("/book/updatedAt", Authenticate, new BookController().readByUpdatedAt);
+router.get("/book/byupdatedat/:UpdatedAt", Authenticate, new BookController().readByUpdatedAt);
 
 export { router };

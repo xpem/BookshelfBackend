@@ -35,6 +35,8 @@ em caso de novo npm i, rodar o npm install no putty
 
 
 Commandos putty
+for pm2 relatives docs
+https://pm2.keymetrics.io/docs/usage/application-declaration/
 
 cd ~/apps_nodejs/BookshelfServer
 
@@ -45,4 +47,20 @@ pm2 start server.js
 
 
 
+4 create envrioment vars
+pm2 start   ecosystem.config.js --only api-app
 
+module.exports = {
+  apps : [{
+    name   : "app1",
+    script : "./app.js",
+    env_production: {
+       NODE_ENV: "production"
+    },
+    env_development: {
+       NODE_ENV: "development"
+    }
+  }]
+}
+
+pm2 start process.json --env production

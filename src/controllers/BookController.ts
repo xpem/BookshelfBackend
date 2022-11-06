@@ -62,6 +62,7 @@ export class BookController {
         .json("Campos Title, Authors e Status são obrigatórios");
     }
   }
+  
   async update(req: Request, res: Response) {
     const id = req.params.id;
 
@@ -128,11 +129,11 @@ export class BookController {
     }
   }
   async readByUpdatedAt(req: Request, res: Response) {
-    if (!req.query.UpdatedAt) {
+    if (!req.params.UpdatedAt) {
       throw new Error("Defina o UpdatedAt");
     }
 
-    const updated_at = req.query.UpdatedAt as string;
+    const updated_at = req.params.UpdatedAt as string;
 
     const bookService = new BookService();
 

@@ -48,9 +48,9 @@ export class UserController {
 
     const userService = new UserService();
     const userResponse = await userService.getByEmail(email);
-    
+
     console.log(userResponse);
-    
+
     if (!userResponse) {
       throw new Error("User/Password incorrect");
     }
@@ -59,8 +59,7 @@ export class UserController {
       password,
       String(userResponse.password)
     );
-
-
+    
     if (!passwordMatch) {
       throw new Error("User/Password incorrect");
     }
@@ -71,6 +70,6 @@ export class UserController {
       { subject: String(userResponse.id), expiresIn: "1d" }
     );
 
-    return res.json(token);
+    return res.json({ token: token });
   }
 }
