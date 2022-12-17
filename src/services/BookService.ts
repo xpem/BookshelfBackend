@@ -1,6 +1,6 @@
 import { OkPacket } from "mysql2";
 import { RowDataPacket } from "mysql2";
-import { Conn } from "../Keys";
+import { Conn } from "../keys";
 import { IBook } from "../models/Book";
 
 export class BookService {

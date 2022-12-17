@@ -1,13 +1,6 @@
 import { RowDataPacket, OkPacket } from "mysql2";
-import { Conn } from "../Keys";
+import { Conn } from "../keys";
 import { IUser } from "../models/User";
-
-// export const conn = mysql.createConnection({
-//     host: DatabaseKeys.host,
-//     user: DatabaseKeys.user,
-//     database: DatabaseKeys.database,
-//     password: DatabaseKeys.password,
-//   });
 
 export class UserService {
   create(name: string, email: string, passwordHash: string): Promise<IUser> {
@@ -64,6 +57,18 @@ export class UserService {
           }
         }
       });
+    });
+  }
+  updatePassword(uid: number, passwordHash: string): Promise<Boolean> {
+    return new Promise((resolve, reject) => {
+      Conn.query<OkPacket>(
+        "update users set password = ? where id = ?",
+        [passwordHash, uid],
+        (err, res) => {
+          if (err) reject(err);
+          else resolve(true);
+        }
+      );
     });
   }
 }

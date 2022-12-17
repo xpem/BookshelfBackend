@@ -22,16 +22,24 @@ for jwt
 npm i jsonwebtoken
 npm i @types/jsonwebtoken -D
 
+>>envio de email
+npm i nodemailer
+
+>>para o post body html
+npm i body-parser
+
 
 para publicar:
 
 run build
 
-Copiar conteudo da pasta build + os package.json e package-lock.json
+colocar na pasta build os arquivos: package.json + package-lock.json + pasta views
+
+Copiar conteudo da pasta build + os package.json + package-lock.json + pasta views
 
 publicar pelo ftp,
 
-em caso de novo npm i, rodar o npm install no putty
+!!! -em caso de novo npm i, rodar o npm install no putty, instruções abaixo
 
 
 Commandos putty

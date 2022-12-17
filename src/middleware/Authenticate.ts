@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
-import { JwtSecret } from "../Keys";
+import { JwtSecret } from "../keys";
 
 interface Payload {
     sub: string;

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css"
+    />
+    <title>My Bookshelf</title>
+  </head>
+  <body>
+    <style>
+      .inputBlock {
+        position: relative;
+      }
+
+      .inputBlock + .inputBlock {
+        margin-top: 0.5rem;
+      }
+
+      .inputBlock label {
+        font-size: 1rem;
+        color: black;
+        font-family: "Nunito", sans-serif;
+      }
+
+      .inputBlock input {
+        width: 100%;
+        height: 2.5rem;
+        margin-top: 0.25rem;
+        border-radius: 0.25rem;
+        background: white;
+        border: 1px solid black;
+        outline: 0;
+        padding: 0 1rem;
+        font: 1rem Nunito;
+        color: black;
+      }
+
+      .containerCenter {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background-color: var(--background-color);
+      }
+
+      .formContainer {
+        display: block;
+        position: relative;
+        /*min-height: 60vh;*/
+        align-items: center;
+        justify-content: center;
+        font-size: calc(10px + 2vmin);
+        color: white;
+        border-radius: 0.25rem;
+        padding: 15px;
+      }
+
+      .submitbutton {
+        border-radius: 0.25rem;
+        display: inline-block;
+        border: 1px solid transparent;
+        padding: 0.5rem;
+        width: 100%;
+        background-color: #362624;
+        font-size: 1.2rem;
+        color: white;
+      }
+    </style>
+
+    <div class="containerCenter">
+      <div class="formContainer">
+        <h1 style="color: #362624">Alteração de Senha</h1>
+        <form method="POST">
+          <!--  <input type="hidden" id="userId" name="userId" /> -->
+          <div class="inputBlock">
+            <input
+              type="password"
+              name="password"
+              placeholder="Senha"
+              maxlength="20"
+              required
+            />
+          </div>
+          <div class="inputBlock">
+            <input
+              type="password"
+              name="cpassword"
+              placeholder="Confirme sua senha"
+              maxlength="20"
+              required
+            />
+          </div>
+          <br />
+          <input class="submitbutton" type="submit" value="Alterar Senha" />
+        </form>
+      </div>
+    </div>
+    <!-- <script>
+      let urlsplited = location.pathname.split("/");
+      console.log(urlsplited[3]);
+      document.getElementById("userId").value = urlsplited[3];
+    </script> -->
+  </body>
+</html>
