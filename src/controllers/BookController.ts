@@ -48,7 +48,7 @@ export class BookController {
     if (bookController.ValidateBook(book)) {
       const bookService = new BookService();
 
-      const bookResponse = await bookService.readByTitle(Title as string);
+      const bookResponse = await bookService.readByTitle(book.Title,book.Uid);
 
       if (!bookResponse) {
         const bookResponse = await bookService.create(book);
@@ -62,7 +62,7 @@ export class BookController {
         .json("Campos Title, Authors e Status são obrigatórios");
     }
   }
-  
+
   async update(req: Request, res: Response) {
     const id = req.params.id;
 
@@ -114,7 +114,7 @@ export class BookController {
     if (bookController.ValidateBook(book)) {
       const bookService = new BookService();
 
-      const bookResponse = await bookService.readByTitle(Title as string);
+      const bookResponse = await bookService.readByTitle(book.Title, book.Uid);
 
       if (bookResponse && bookResponse.Id != book.Id) {
         return res.status(409).json("Livro com este título já cadastrado.");
@@ -134,11 +134,12 @@ export class BookController {
     }
 
     const updated_at = req.params.UpdatedAt as string;
-
+    const uid = String(req.uid);
     const bookService = new BookService();
 
     const booksResponse = await bookService.readListByUpdatedAt(
-      new Date(updated_at)
+      new Date(updated_at),
+      uid
     );
 
     return res.json(booksResponse);

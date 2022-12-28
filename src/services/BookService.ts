@@ -66,13 +66,13 @@ export class BookService {
       );
     });
   }
-  readByTitle(title: String): Promise<IBook | null> {
+  readByTitle(title: String, uid: string): Promise<IBook | null> {
     return new Promise((resolve, reject) => {
       Conn.query(
         "SELECT id, uid, title, subtitle, authors, volume, pages, year, status," +
           " genre, isbn, cover, google_id, score, comment, created_at, updated_at," +
-          " inactive FROM books WHERE title = ?",
-        [title],
+          " inactive FROM books WHERE title = ? and uid = ?",
+        [title, uid],
         (err, res) => {
           if (err) reject(err);
           else {
@@ -107,13 +107,13 @@ export class BookService {
       );
     });
   }
-  readListByUpdatedAt(updatedAt: Date): Promise<IBook[] | null> {
+  readListByUpdatedAt(updatedAt: Date, uid: string): Promise<IBook[] | null> {
     return new Promise((resolve, reject) => {
       Conn.query(
         "SELECT id, uid, title, subtitle, authors, volume, pages, year, status," +
           " genre, isbn, cover, google_id, score, comment, created_at, updated_at," +
-          " inactive FROM books WHERE updated_at > ?",
-        [updatedAt],
+          " inactive FROM books WHERE updated_at > ? and uid = ?",
+        [updatedAt, uid],
         (err, res) => {
           if (err) reject(err);
           else {
