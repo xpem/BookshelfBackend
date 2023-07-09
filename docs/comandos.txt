@@ -31,7 +31,7 @@ npm i body-parser
 
 para publicar:
 
-run build
+npm run build
 
 colocar na pasta build os arquivos: package.json + package-lock.json + pasta views
 

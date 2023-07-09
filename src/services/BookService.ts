@@ -20,7 +20,7 @@ export class BookService {
           book.Status,
           book.Genre,
           book.Isbn,
-          book.Comment,
+          book.Cover,
           book.GoogleId,
           book.Score,
           book.Comment,
@@ -38,7 +38,7 @@ export class BookService {
   update(book: IBook): Promise<IBook> {
     return new Promise((resolve, reject) => {
       Conn.query<OkPacket>(
-        "update books set title = ?, subtitle = ?, authors = ?, volume = ?, pages = ?, year = ?, status = ?, genre = ?, isbn = ?, cover = ?, google_id = ?, score = ?, comment = ?, updated_at = now(), inactive = ? where id = ?",
+        "update books set title = ?, subtitle = ?, authors = ?, volume = ?, pages = ?, year = ?, status = ?, genre = ?, isbn = ?, cover = ?, google_id = ?, score = ?, comment = ?, updated_at = now(), inactive = ? where id = ? and uid = ?",
         [
           book.Title,
           book.SubTitle,
@@ -49,12 +49,13 @@ export class BookService {
           book.Status,
           book.Genre,
           book.Isbn,
-          book.Comment,
+          book.Cover,
           book.GoogleId,
           book.Score,
           book.Comment,
           book.Inactive,
           book.Id,
+          book.Uid,
         ],
         (err, res) => {
           if (err) reject(err);
