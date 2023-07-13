@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { IBook } from "../models/Book";
 import { BookService } from "../services/BookService";
+import { IBookHistoric } from "../models/BookHistoric";
 
 export class BookController {
   async create(req: Request, res: Response) {
@@ -48,11 +49,22 @@ export class BookController {
     if (bookController.ValidateBook(book)) {
       const bookService = new BookService();
 
-      const bookResponse = await bookService.readByTitle(book.Title,book.Uid);
+      const bookResponse = await bookService.readByTitle(book.Title, book.Uid);
 
       if (!bookResponse) {
         const bookResponse = await bookService.create(book);
-        return res.json(bookResponse);
+        if (bookResponse.Id) {
+
+          //apos criar com sucesso, gera historico
+          const bookhistoric = {
+            BookId: bookResponse.Id,
+            TypeId: 1,
+          } as IBookHistoric;
+
+          
+          
+          return res.json(bookResponse);
+        }
       } else {
         return res.status(409).json("Livro com este título já cadastrado.");
       }
