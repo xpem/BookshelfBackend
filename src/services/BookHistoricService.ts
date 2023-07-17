@@ -4,17 +4,17 @@ import { OkPacket } from "mysql2";
 import { RowDataPacket } from "mysql2";
 
 export class BookHistoricService {
-  create(bookId: number): Promise<void> {
+  create(bookId: number, bookhistoricTypeId: number): Promise<IBookHistoric> {
     return new Promise((resolve, reject) => {
       Conn.query<OkPacket>(
-        "insert into book_historic(created_at,book_id,type_id) values (now(),?,1)",
-        [bookId],
+        "insert into book_historic(created_at,book_id,type_id) values (now(),?,?)",
+        [bookId, bookhistoricTypeId],
         (err, res) => {
           if (err) reject(err);
-          else resolve();
-          // this.readById(res.insertId)
-          //   .then((i) => resolve(i!))
-          //   .catch(reject);
+          else
+            this.readById(res.insertId)
+              .then((i) => resolve(i!))
+              .catch(reject);
         }
       );
     });

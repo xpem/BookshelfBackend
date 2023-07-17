@@ -13,18 +13,28 @@ create table historic_type(
       Name varchar(100)
   ) 
   
-  
   insert into historic_type(name) values ('Insert')
   insert into historic_type(name) values ('Update')
   insert into historic_type(name) values ('Delete')
+  insert into historic_type(name) values ('Inactivate')
+
+create table book_historic_item_field(
+        id int primary key AUTO_INCREMENT,
+        Name varchar(100)
+);
+
+insert into book_historic_item_field(name) values ('SubTítulo')
+insert into book_historic_item_field(name) values ('Título')
+insert into book_historic_item_field(name) values ('Capa')
   
- create table book_historic_item(
+  create table book_historic_item(
     id int primary key AUTO_INCREMENT,
-    book_field varchar(150) not null,
+    book_field_id int,
     updated_from varchar(150) not null,
     updated_to varchar(150) not null,
     book_historic_id int not null,
-   CONSTRAINT `FK_book_historic_item` FOREIGN KEY (`book_historic_id`) REFERENCES `book_historic` (`id`)
+    CONSTRAINT `FK_book_historic_item` FOREIGN KEY (`book_historic_id`) REFERENCES `book_historic` (`id`),
+    CONSTRAINT `FK_book_historic_item_field` FOREIGN KEY (`book_field_id`) REFERENCES `book_historic_item_field` (`id`)
   )
   
   
