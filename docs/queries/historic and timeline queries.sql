@@ -1,7 +1,7 @@
 
   create table book_historic(
     id int primary key AUTO_INCREMENT,
-  	creation_dt datetime not null default NOW(),
+  	created_at datetime not null default NOW(),
     book_id int not null,
     type_id int not NULL,
     CONSTRAINT `FK_book_historic` FOREIGN KEY (book_id) REFERENCES books (id),
@@ -31,7 +31,7 @@ create table historic_type(
   create table book_comment(
         id int primary key AUTO_INCREMENT,
         comment varchar(350) not null,
-    	  creation_dt datetime not null default NOW(),
+    	  created_at datetime not null default NOW(),
         book_id int not null,
         CONSTRAINT `FK_book_comment` FOREIGN KEY (`book_id`) REFERENCES `book` (`id`)
   )

@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { IBook } from "../models/Book";
 import { BookService } from "../services/BookService";
 import { IBookHistoric } from "../models/BookHistoric";
+import { BookHistoricService } from "../services/BookHistoricService";
 
 export class BookController {
   async create(req: Request, res: Response) {
@@ -54,15 +55,10 @@ export class BookController {
       if (!bookResponse) {
         const bookResponse = await bookService.create(book);
         if (bookResponse.Id) {
-
           //apos criar com sucesso, gera historico
-          const bookhistoric = {
-            BookId: bookResponse.Id,
-            TypeId: 1,
-          } as IBookHistoric;
 
-          
-          
+          await new BookHistoricService().create(bookResponse.Id);
+
           return res.json(bookResponse);
         }
       } else {
@@ -156,6 +152,7 @@ export class BookController {
 
     return res.json(booksResponse);
   }
+  
   ValidateBook(book: IBook) {
     if (!book.Title) {
       return false;
