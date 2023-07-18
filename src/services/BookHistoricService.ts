@@ -7,7 +7,7 @@ export class BookHistoricService {
   create(bookId: number, bookhistoricTypeId: number): Promise<IBookHistoric> {
     return new Promise((resolve, reject) => {
       Conn.query<OkPacket>(
-        "insert into book_historic(created_at,book_id,type_id) values (now(),?,?)",
+        "insert into book_historic(book_id,type_id) values (?,?)",
         [bookId, bookhistoricTypeId],
         (err, res) => {
           if (err) reject(err);

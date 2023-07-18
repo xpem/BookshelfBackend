@@ -5,5 +5,4 @@ export interface IBookHistoricItem {
   BookField: number;
   UpdatedFrom: string;
   UpdatedTo: string;
-  BookHistoric: IBookHistoric;
 }

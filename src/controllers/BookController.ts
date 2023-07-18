@@ -3,6 +3,7 @@ import { IBook } from "../models/Book";
 import { BookService } from "../services/BookService";
 import { BookHistoricService } from "../services/BookHistoricService";
 import { IBookHistoricItem } from "../models/BookHistoricItem";
+import { BookHistoricItemService } from "../services/BookHsitoricItemService";
 
 export class BookController {
   async create(req: Request, res: Response) {
@@ -102,12 +103,18 @@ export class BookController {
     if (bookController.ValidateBook(book)) {
       const bookService = new BookService();
 
-      const bookResponse = await bookService.readByTitle(book.Title, book.Uid);
+      const bookOriResponse = await bookService.readByTitle(
+        book.Title,
+        book.Uid
+      );
 
-      if (bookResponse && bookResponse.Id != book.Id) {
+      if (bookOriResponse && bookOriResponse.Id != book.Id) {
         return res.status(409).json("Livro com este título já cadastrado.");
       } else {
         const bookResponse = await bookService.update(book);
+
+        await bookController.InsertBookHistoric(bookOriResponse as IBook, bookResponse);
+
         return res.json(bookResponse);
       }
     } else {
@@ -116,38 +123,63 @@ export class BookController {
         .json("Campos Title, Authors e Status são obrigatórios");
     }
   }
-  async BuildBookHistoric(oriBook: IBook, book: IBook) {
+  async InsertBookHistoric(oriBook: IBook, book: IBook) {
     const bookHistoric = await new BookHistoricService().create(
       book.Id as number,
       2
     );
 
+    const bookHistoricItemService = new BookHistoricItemService();
+    var bookHistoricItemList = [] as IBookHistoricItem[];
+
     if (bookHistoric) {
       // if(bookOri.Cover && book.Cover)
-      if (oriBook.Title && book.Title) {
-        var bookHistoricItem = {
+      if (oriBook.Title !== book.Title)
+        bookHistoricItemList.push({
           BookField: 2,
           UpdatedFrom: oriBook.Title,
           UpdatedTo: book.Title,
-          BookHistoric: bookHistoric,
-        } as IBookHistoricItem;
-      }
-      if (oriBook.SubTitle && book.SubTitle) {
-        var bookHistoricItem = {
+        } as IBookHistoricItem);
+
+      if (oriBook.SubTitle !== book.SubTitle)
+        bookHistoricItemList.push({
           BookField: 1,
           UpdatedFrom: oriBook.SubTitle,
           UpdatedTo: book.SubTitle,
-          BookHistoric: bookHistoric,
-        } as IBookHistoricItem;
-      }
-      if (oriBook.Cover && book.Cover) {
-        var bookHistoricItem = {
+        } as IBookHistoricItem);
+
+      if (oriBook.Cover !== book.Cover)
+        bookHistoricItemList.push({
           BookField: 3,
           UpdatedFrom: oriBook.Cover,
           UpdatedTo: book.Cover,
-          BookHistoric: bookHistoric,
-        } as IBookHistoricItem;
-      }
+        } as IBookHistoricItem);
+
+      if (oriBook.Authors !== book.Authors)
+        bookHistoricItemList.push({
+          BookField: 4,
+          UpdatedFrom: oriBook.Authors,
+          UpdatedTo: book.Authors,
+        } as IBookHistoricItem);
+
+      if (oriBook.Volume !== book.Volume)
+        bookHistoricItemList.push({
+          BookField: 5,
+          UpdatedFrom: oriBook.Volume.toString(),
+          UpdatedTo: book.Volume.toString(),
+        } as IBookHistoricItem);
+
+      if (oriBook.Pages !== book.Pages)
+        bookHistoricItemList.push({
+          BookField: 6,
+          UpdatedFrom: oriBook.Pages.toString(),
+          UpdatedTo: book.Pages.toString(),
+        } as IBookHistoricItem);
+
+      bookHistoricItemList.forEach(
+        async (x) =>
+          await bookHistoricItemService.create(x, bookHistoric.Id as number)
+      );
     }
   }
   async readByUpdatedAt(req: Request, res: Response) {
