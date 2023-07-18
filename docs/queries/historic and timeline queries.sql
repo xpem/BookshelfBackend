@@ -26,13 +26,23 @@ create table book_historic_item_field(
 insert into book_historic_item_field(name) values ('SubTítulo')
 insert into book_historic_item_field(name) values ('Título')
 insert into book_historic_item_field(name) values ('Capa')
-  
+insert into book_historic_item_field(name) values ('Autores')
+insert into book_historic_item_field(name) values ('Volume')
+insert into book_historic_item_field(name) values ('Páginas')
+insert into book_historic_item_field(name) values ('Ano')
+insert into book_historic_item_field(name) values ('Status')
+insert into book_historic_item_field(name) values ('Avaliação')
+insert into book_historic_item_field(name) values ('Gênero')
+insert into book_historic_item_field(name) values ('Isbn')
+insert into book_historic_item_field(name) values ('Inativo')
+
   create table book_historic_item(
     id int primary key AUTO_INCREMENT,
     book_field_id int,
     updated_from varchar(150) not null,
     updated_to varchar(150) not null,
     book_historic_id int not null,
+    created_at datetime not null default NOW(),
     CONSTRAINT `FK_book_historic_item` FOREIGN KEY (`book_historic_id`) REFERENCES `book_historic` (`id`),
     CONSTRAINT `FK_book_historic_item_field` FOREIGN KEY (`book_field_id`) REFERENCES `book_historic_item_field` (`id`)
   )
