@@ -67,6 +67,18 @@ export class BookService {
       );
     });
   }
+  Inactive(bookid: number, uid: number): Promise<void> {
+    return new Promise((resolve, reject) => {
+      Conn.query<OkPacket>(
+        "update books set updated_at = now(), inactive = 1 where id = ? and uid = ?",
+        [bookid, uid],
+        (err, res) => {
+          if (err) reject(err);
+          else resolve();
+        }
+      );
+    });
+  }
   readByTitle(title: String, uid: string): Promise<IBook | null> {
     return new Promise((resolve, reject) => {
       Conn.query(

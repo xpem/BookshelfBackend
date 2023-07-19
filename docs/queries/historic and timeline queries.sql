@@ -39,8 +39,8 @@ insert into book_historic_item_field(name) values ('Inativo')
   create table book_historic_item(
     id int primary key AUTO_INCREMENT,
     book_field_id int,
-    updated_from varchar(150) not null,
-    updated_to varchar(150) not null,
+    updated_from varchar(250) not null,
+    updated_to varchar(250) not null,
     book_historic_id int not null,
     created_at datetime not null default NOW(),
     CONSTRAINT `FK_book_historic_item` FOREIGN KEY (`book_historic_id`) REFERENCES `book_historic` (`id`),

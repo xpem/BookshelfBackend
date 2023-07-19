@@ -5,4 +5,7 @@ export interface IBookHistoricItem {
   BookField: number;
   UpdatedFrom: string;
   UpdatedTo: string;
+
+  CreatedAt?: Date | null;
+  BookFieldName?: string | null;
 }

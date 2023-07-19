@@ -6,8 +6,8 @@ import path from "path";
 
 const router = Router();
 
-router.post("/book", Authenticate, new BookController().create);
-router.put("/book/:id", Authenticate, new BookController().update);
+router.post("/book", Authenticate, new BookController().Create);
+router.put("/book/:id", Authenticate, new BookController().Update);
 router.get(
   "/book/byupdatedat/:UpdatedAt",
   Authenticate,
