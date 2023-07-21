@@ -2,6 +2,7 @@ import { IBook } from "../models/Book";
 import { IBookHistoricItem } from "../models/BookHistoricItem";
 import { BookHistoricService } from "../services/BookHistoricService";
 import { BookHistoricItemService } from "../services/BookHsitoricItemService";
+import { Request, Response } from "express";
 
 export class BookHistoricController {
   async BookUpdateHistoric(oriBook: IBook, book: IBook) {
@@ -9,8 +10,6 @@ export class BookHistoricController {
       book.Id as number,
       2
     );
-
-    const bookHistoricItemService = new BookHistoricItemService();
     var bookHistoricItemList = [] as IBookHistoricItem[];
 
     if (bookHistoric) {
@@ -94,8 +93,20 @@ export class BookHistoricController {
 
       bookHistoricItemList.forEach(
         async (x) =>
-          await bookHistoricItemService.create(x, bookHistoric.Id as number)
+          await new BookHistoricItemService().create(
+            x,
+            bookHistoric.Id as number
+          )
       );
     }
+  }
+  async ReadByBookId(req: Request, res: Response) {
+    if (!req.params.id) throw new Error("Defina o id");
+
+    const Id = req.params.id as string;
+    var uid = Number(req.uid);
+    
+    const bookHistoric = await new BookHistoricService().readByBookId(Number(Id),uid);
+    return res.json(bookHistoric);
   }
 }

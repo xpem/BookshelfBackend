@@ -22,7 +22,6 @@ export function Authenticate(
   try {
     const { sub } = verify(token, JwtSecret) as Payload;
 
-    console.log(sub)
     //é necessário declarar o tipo user_id no request; no @types express
     req.uid = Number(sub);
 

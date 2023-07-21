@@ -4,6 +4,7 @@
   	created_at datetime not null default NOW(),
     book_id int not null,
     type_id int not NULL,
+    uid int not NULL,
     CONSTRAINT `FK_book_historic` FOREIGN KEY (book_id) REFERENCES books (id),
     CONSTRAINT `FK_historic_type` FOREIGN KEY (type_id) REFERENCES historic_type (id)
   )

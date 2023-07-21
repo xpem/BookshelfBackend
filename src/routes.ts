@@ -3,10 +3,12 @@ import { BookController } from "./controllers/BookController";
 import { UserController } from "./controllers/UserController";
 import { Authenticate } from "./middleware/Authenticate";
 import path from "path";
+import { BookHistoricController } from "./controllers/BookHistoricController";
 
 const router = Router();
 
 router.post("/book", Authenticate, new BookController().Create);
+router.get("/book/historic/:id", Authenticate, new BookHistoricController().ReadByBookId);
 router.put("/book/:id", Authenticate, new BookController().Update);
 router.get(
   "/book/byupdatedat/:UpdatedAt",

@@ -2,7 +2,7 @@ import { IBookHistoric } from "./BookHistoric";
 
 export interface IBookHistoricItem {
   Id?: number | null;
-  BookField: number;
+  BookField?: number | null;
   UpdatedFrom: string;
   UpdatedTo: string;
 
