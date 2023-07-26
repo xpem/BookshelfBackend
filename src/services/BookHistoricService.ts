@@ -5,11 +5,15 @@ import { RowDataPacket } from "mysql2";
 import { IBookHistoricItem } from "../models/BookHistoricItem";
 
 export class BookHistoricService {
-  create(bookId: number, bookhistoricTypeId: number): Promise<IBookHistoric> {
+  create(
+    bookId: number,
+    bookhistoricTypeId: number,
+    uid: string
+  ): Promise<IBookHistoric> {
     return new Promise((resolve, reject) => {
       Conn.query<OkPacket>(
-        "insert into book_historic(book_id,type_id) values (?,?)",
-        [bookId, bookhistoricTypeId],
+        "insert into book_historic(book_id,type_id,uid) values (?,?,?)",
+        [bookId, bookhistoricTypeId, uid],
         (err, res) => {
           if (err) reject(err);
           else

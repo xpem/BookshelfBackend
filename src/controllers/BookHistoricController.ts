@@ -8,7 +8,8 @@ export class BookHistoricController {
   async BookUpdateHistoric(oriBook: IBook, book: IBook) {
     const bookHistoric = await new BookHistoricService().create(
       book.Id as number,
-      2
+      2,
+      book.Uid as string
     );
     var bookHistoricItemList = [] as IBookHistoricItem[];
 
@@ -105,8 +106,11 @@ export class BookHistoricController {
 
     const Id = req.params.id as string;
     var uid = Number(req.uid);
-    
-    const bookHistoric = await new BookHistoricService().readByBookId(Number(Id),uid);
+
+    const bookHistoric = await new BookHistoricService().readByBookId(
+      Number(Id),
+      uid
+    );
     return res.json(bookHistoric);
   }
 }

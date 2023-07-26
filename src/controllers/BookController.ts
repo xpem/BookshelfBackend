@@ -40,7 +40,7 @@ export class BookController {
         if (bookResponse.Id) {
           //apos criar com sucesso, gera historico
 
-          await new BookHistoricService().create(bookResponse.Id, 1);
+          await new BookHistoricService().create(bookResponse.Id, 1, book.Uid);
 
           return res.json(bookResponse);
         }
