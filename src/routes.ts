@@ -8,13 +8,22 @@ import { BookHistoricController } from "./controllers/BookHistoricController";
 const router = Router();
 
 router.post("/book", Authenticate, new BookController().Create);
-router.get("/book/historic/:id", Authenticate, new BookHistoricController().ReadByBookId);
-router.put("/book/:id", Authenticate, new BookController().Update);
+router.get(
+  "/book/historic/bycreatedat/:CreatedAt",
+  Authenticate,
+  new BookHistoricController().ReadByCreatedAt
+);
+router.get(
+  "/book/historic/bybookid/:id",
+  Authenticate,
+  new BookHistoricController().ReadByBookId
+);
 router.get(
   "/book/byupdatedat/:UpdatedAt",
   Authenticate,
   new BookController().readByUpdatedAt
 );
+router.put("/book/:id", Authenticate, new BookController().Update);
 
 router.post("/user", new UserController().create);
 router.post("/user/session", new UserController().GenerateToken);
