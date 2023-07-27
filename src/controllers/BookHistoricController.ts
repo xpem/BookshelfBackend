@@ -101,15 +101,33 @@ export class BookHistoricController {
       );
     }
   }
+  async ReadByCreatedAt(req: Request, res: Response) {
+    if (!req.params.CreatedAt) throw new Error("Defina a data mínima");
+
+    const created_at = req.params.CreatedAt as string;
+    var uid = Number(req.uid);
+
+    const bookHistoric = await new BookHistoricService().readHistoric(
+      0,
+      uid,
+      new Date(created_at),
+      false,
+      true
+    );
+    return res.json(bookHistoric);
+  }
   async ReadByBookId(req: Request, res: Response) {
     if (!req.params.id) throw new Error("Defina o id");
 
     const Id = req.params.id as string;
     var uid = Number(req.uid);
 
-    const bookHistoric = await new BookHistoricService().readByBookId(
+    const bookHistoric = await new BookHistoricService().readHistoric(
       Number(Id),
-      uid
+      uid,
+      new Date(),
+      true,
+      false
     );
     return res.json(bookHistoric);
   }
