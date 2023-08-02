@@ -85,7 +85,6 @@ export class BookController {
 
     if (bookController.ValidateBook(book)) {
       const bookService = new BookService();
-
       const bookOriResponse = await bookService.readByTitle(
         book.Title,
         book.Uid
@@ -98,7 +97,8 @@ export class BookController {
 
         await new BookHistoricController().BookUpdateHistoric(
           bookOriResponse as IBook,
-          bookResponse
+          bookResponse,
+          book.Uid
         );
 
         return res.json(bookResponse);

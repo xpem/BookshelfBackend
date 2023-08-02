@@ -112,6 +112,7 @@ export class BookHistoricService {
                     CreatedAt: row.hist_created_at,
                     TypeId: row.type_id,
                     Type: row.type_name,
+                    BookId: row.book_id,
                     BookHistoricItems: [],
                   };
 
