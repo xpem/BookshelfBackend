@@ -5,11 +5,12 @@ import { BookHistoricItemService } from "../services/BookHsitoricItemService";
 import { Request, Response } from "express";
 
 export class BookHistoricController {
-  async BookUpdateHistoric(oriBook: IBook, book: IBook) {
+  async BookUpdateHistoric(oriBook: IBook, book: IBook, uid: string) {
+
     const bookHistoric = await new BookHistoricService().create(
       book.Id as number,
       2,
-      book.Uid as string
+      uid as string
     );
     var bookHistoricItemList = [] as IBookHistoricItem[];
 
