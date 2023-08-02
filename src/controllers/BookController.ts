@@ -134,7 +134,8 @@ export class BookController {
     if (!book.Authors) {
       return false;
     }
-    if (!book.Status) {
+
+    if (book.Status < 0) {
       return false;
     }
     return true;

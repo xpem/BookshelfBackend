@@ -59,7 +59,7 @@ export class BookHistoricService {
     return new Promise((resolve, reject) => {
       var query =
         "select h.id as historic_id, h.created_at as hist_created_at, h.book_id, h.type_id, ht.Name as type_name, i.id as item_id, i.updated_from, " +
-        "i.updated_to, i.book_historic_id, i.created_at as item_created_at, f.Name as field_name from book_historic h " +
+        "i.updated_to, i.book_historic_id, i.created_at as item_created_at, f.Name as field_name,i.book_field_id as field_id from book_historic h " +
         "left join book_historic_item i on h.id = i.book_historic_id " +
         "left join book_historic_item_field f on i.book_field_id = f.id " +
         "left join historic_type ht on h.type_id = ht.id " +
@@ -100,6 +100,7 @@ export class BookHistoricService {
                   if (row.item_id) {
                     objList[objList.length - 1].BookHistoricItems?.push({
                       Id: row.item_id,
+                      BookFieldId: row.field_id,
                       BookFieldName: row.field_name,
                       UpdatedFrom: row.updated_from,
                       UpdatedTo: row.updated_to,
@@ -119,6 +120,7 @@ export class BookHistoricService {
                   if (row.item_id)
                     obj.BookHistoricItems?.push({
                       Id: row.item_id,
+                      BookFieldId: row.field_id,
                       BookFieldName: row.field_name,
                       UpdatedFrom: row.updated_from,
                       UpdatedTo: row.updated_to,

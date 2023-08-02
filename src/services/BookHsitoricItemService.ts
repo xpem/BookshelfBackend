@@ -10,7 +10,7 @@ export class BookHistoricItemService {
       Conn.query<OkPacket>(
         "insert into book_historic_item(book_field_id,updated_from,updated_to,book_historic_id) values (?,?,?,?)",
         [
-          bookHistoricItem.BookField,
+          bookHistoricItem.BookFieldId,
           bookHistoricItem.UpdatedFrom,
           bookHistoricItem.UpdatedTo,
           bookHistoricId,
